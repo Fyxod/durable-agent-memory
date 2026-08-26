@@ -16,9 +16,9 @@ re-reading the whole workspace or trusting stale prose.
   clear current-state section; do not silently rewrite what was previously
   believed or erase failed work.
 - Separate facts, interpretations, decisions, open hypotheses, planned work,
-  and user instructions. Do not promote an internal metric, successful command,
-  or completed runner into a scientific/product outcome without the required
-  endpoint evidence.
+  and user instructions. Do not promote internal diagnostics, successful
+  commands, or completed runners into user-visible or project outcomes without
+  the relevant outcome evidence.
 - Point material claims to stable local paths, run IDs, commits, hashes, issue
   IDs, or authoritative sources. Say when evidence is missing or only inferred.
 - Keep secrets, credentials, personal access tokens, and sensitive raw data out
@@ -42,8 +42,11 @@ selected mode. Do not load mode details that are irrelevant to the request.
 ## Establish the memory boundary
 
 Use a user-specified location. Otherwise choose a discoverable, project-local
-directory such as `project-memory/` or `codex_memory/` without overwriting an
-existing directory. Inspect repository instructions and existing memory first.
+directory such as `project-memory/` or `codex_memory/`. If a memory directory
+already exists, inspect and reuse or update it; never replace it. If the
+requested location conflicts with unrelated existing content, ask before
+choosing a different location. Inspect repository instructions and existing
+memory first.
 
 Before bootstrapping, inventory the relevant roots, repository state, current
 task history, active processes/runs, and authoritative output locations. When
@@ -103,9 +106,11 @@ conditions that would change that action.
 - Use dates and stable identifiers. Prefer links over duplicating large data.
 - Keep current-state files concise by moving completed detail to dedicated
   records while retaining a short current conclusion.
-- Check links and structure with `scripts/validate_memory.py <memory-dir>` when
-  the conventional index/schema is used. This validator is diagnostic and must
-  not rewrite memory.
+- Check links and structure with
+  `scripts/validate_memory.py <memory-dir> --strict` when the conventional
+  index/schema is used. This validator is diagnostic and must not rewrite
+  memory. Its default mode permits schema warnings; it does not prove semantic
+  claim consistency or absence of secrets, which still require manual review.
 - Commit coherent memory milestones when the memory is already authorized for
   Git. Use the user's required identity, avoid credentials, and verify the
   intended paths before staging. Push only when authorized and technically

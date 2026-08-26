@@ -21,8 +21,10 @@ Read only the section matching the current request.
 
 1. Identify what materially changed since the last memory entry.
 2. Update directives first when the user changed scope or authorization.
-3. Add a dated decision/evidence entry. Update current state and next checkpoint
-   only when the new evidence actually changes them.
+3. Add a dated decision/evidence entry. For failures, classify valid negative,
+   invalid, or confounded; preserve the terminal marker and exact artifact path
+   before revising current state. Update current state and next checkpoint only
+   when the new evidence actually changes them.
 4. Preserve the prior conclusion in history; explain why the current conclusion
    supersedes it.
 5. Check that new claims cite existing artifacts and that planned work is not
@@ -32,8 +34,10 @@ Read only the section matching the current request.
 
 1. Read the index, directives, current state, recent decision-log tail, and
    exact next checkpoint.
-2. Inspect current repository status, newest run directories and terminal
-   markers, process/GPU state when relevant, disk, and the newest task history.
+2. Inspect current repository status, newest run directories and completion or
+   status markers, process/GPU state when relevant, disk, and the newest task
+   history from the project's configured task, session, issue, or transcript
+   system.
 3. Compare memory with reality. Record drift such as a completed run still
    described as active, a changed hash, uncommitted evidence, or an interrupted
    process.

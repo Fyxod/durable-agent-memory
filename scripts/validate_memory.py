@@ -26,26 +26,27 @@ def validate(root: Path, strict: bool = False) -> dict[str, object]:
     if not root.is_dir():
         return {"root": str(root), "ok": False, "errors": ["memory directory does not exist"], "warnings": []}
 
-    markdown = sorted(root.glob("*.md"))
+    markdown = sorted(path for path in root.rglob("*.md") if ".git" not in path.relative_to(root).parts)
     if not markdown:
         errors.append("no top-level Markdown memory files found")
     index = root / "README.md"
     if not index.is_file():
         (errors if strict else warnings).append("README.md index is missing")
     else:
-        text = index.read_text(encoding="utf-8")
-        for target in LINK.findall(text):
-            target = target.split("#", 1)[0].strip()
-            if not target or "://" in target or target.startswith("/"):
-                continue
-            candidate = (root / target).resolve()
-            try:
-                candidate.relative_to(root)
-            except ValueError:
-                errors.append(f"index link escapes memory root: {target}")
-                continue
-            if not candidate.exists():
-                errors.append(f"broken index link: {target}")
+        for document in markdown:
+            text = document.read_text(encoding="utf-8")
+            for target in LINK.findall(text):
+                target = target.split("#", 1)[0].strip()
+                if not target or "://" in target or target.startswith("/"):
+                    continue
+                candidate = (document.parent / target).resolve()
+                try:
+                    candidate.relative_to(root)
+                except ValueError:
+                    errors.append(f"link escapes memory root in {document.relative_to(root)}: {target}")
+                    continue
+                if not candidate.exists():
+                    errors.append(f"broken link in {document.relative_to(root)}: {target}")
 
     for name in CORE_CONVENTIONAL[1:]:
         if not (root / name).is_file():

@@ -45,8 +45,8 @@ When a process disappears or a stage is interrupted:
 4. Prefer append-only recovery from a validated deterministic prefix or saved
    checkpoint. Freeze a recovery contract before resuming when chronology or
    selection leakage matters.
-5. If recovery changes the scientific protocol, treat it as a new run rather
-   than silent continuation.
+5. If recovery changes the project protocol or evaluation contract, treat it
+   as a new run rather than silent continuation.
 
 ## Handoff record
 
