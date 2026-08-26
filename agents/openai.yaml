@@ -1,0 +1,4 @@
+interface:
+  display_name: "Durable Project Memory"
+  short_description: "Maintain evidence-backed memory for long-running projects"
+  default_prompt: "Use $durable-project-memory to create or update evidence-backed memory for this project."
